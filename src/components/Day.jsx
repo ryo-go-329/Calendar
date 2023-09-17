@@ -23,7 +23,7 @@ const Day = (props) => {
       }
     }
     
-    const {setShowEventModal,setDaySelected,savedEvents} = useContext(GlobalContext);
+    const {setShowEventModal,setDaySelected,savedEvents,setSelectedEvents} = useContext(GlobalContext);
     const getShowEventModal = () => {
       setShowEventModal(true);
       setDaySelected(day.format("dddd, MMMM DD"));
@@ -52,7 +52,10 @@ const Day = (props) => {
         setShowEventModal(true);
       }}>
         {dayEvents.map((evt,idx) => (
-          <div key={idx} className={'bg-neutral-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate'}>
+          <div 
+            onClick={() => setSelectedEvents(evt)}
+            key={idx} 
+            className={'bg-neutral-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate'}>
             {evt.title}
           </div>
         ))}

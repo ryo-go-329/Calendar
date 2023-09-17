@@ -7,6 +7,10 @@ const saveEventsReducer = (state,{type,payload}) => {
   switch (type){
       case 'save':
           return [...state,payload];
+      case 'update':
+          return state.map((evt) => (evt.id === payload.id ? payload : evt))
+      case 'delete':
+          return state.filter((evt) => (evt.id !== payload.id ))
       default:
           throw new Error();
   }
@@ -22,16 +26,24 @@ const ContextWrapper = (props) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [daySelected,setDaySelected] = useState(dayjs());
   const [savedEvents,dispatchEvent] = useReducer(saveEventsReducer,[],initEvents);
+  const [selectedEvents,setSelectedEvents] = useState(null);
 
   useEffect(()=>{
     localStorage.setItem("savedEvents",JSON.stringify(savedEvents));
   },[savedEvents]);
+
+  useEffect(()=>{
+    if (! showEventModal) {
+      setSelectedEvents(null)
+    }
+  },[showEventModal])
   return (
     <GlobalContext.Provider value={{
        monthIndex, setMonthIndex,
        showEventModal, setShowEventModal,
        daySelected,setDaySelected,
-       savedEvents,dispatchEvent
+       savedEvents,dispatchEvent,
+       selectedEvents,setSelectedEvents
        }}>
       {props.children}
     </GlobalContext.Provider>

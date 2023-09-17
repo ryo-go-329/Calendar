@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
+import { AiOutlineSearch } from 'react-icons/ai'
 import {FaRegCalendarAlt} from 'react-icons/fa';
 import GlobalContext from '../context/GlobalContext';
 import { useContext } from 'react';
@@ -33,6 +34,11 @@ const CalendarHeader = () => {
           </span>
         </button>
         <h2 className='ml-4 text-xl text-gray-500 font-bold'>{dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}</h2>
+        <button>
+          <span className='cursor-pointer mx-5'>
+            <AiOutlineSearch/>
+          </span>
+        </button>
       </header>
     </div>
   )

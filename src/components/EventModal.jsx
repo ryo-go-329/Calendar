@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdDeleteOutline } from 'react-icons/md';
 import GlobalContext from '../context/GlobalContext';
 const EventModal = () => {
     // const {showEventModal,setShowEventModal} = useContext(GlobalContext);
     // const {daySelected,setDaySelected} = useContext(GlobalContext);
     // const {savedEvents,dispatchEvent} = useContext(GlobalContext);
-    const {setShowEventModal,daySelected,dispatchEvent} = useContext(GlobalContext);
-    const [title, setTitle] = useState("");
+    const {setShowEventModal,daySelected,dispatchEvent,selectedEvents} = useContext(GlobalContext);
+    const [title, setTitle] = useState(selectedEvents ? selectedEvents.title : "");
 
     
     const handleSubmit = (e) => {
@@ -15,9 +15,14 @@ const EventModal = () => {
             title:title,
             // day:daySelected,
             day:daySelected.valueOf(),
-            id:Date.now(),
+            id: selectedEvents ? selectedEvents.id :  Date.now(),
         };
-        dispatchEvent({type:"save",payload:calendarEvent});
+        if (selectedEvents){
+            dispatchEvent({type:"update",payload:calendarEvent});
+        } else {
+            dispatchEvent({type:"save",payload:calendarEvent});
+        }
+       
         setShowEventModal(false);
     };
   return (
@@ -25,6 +30,11 @@ const EventModal = () => {
         <form className='bg-white rounded-lg shadow-2xl w-1/4'>
             <header className='bg-gray-100 px-4 py-2 flex justify-end'>
                 <div className='text-gray-400'>
+                    <button onClick={() => {
+                        dispatchEvent({type:"delete",payload:selectedEvents});
+                    }}>
+                        <MdDeleteOutline />
+                    </button>
                     <button onClick={() => setShowEventModal(false)}>
                         <MdClose />
                     </button>
