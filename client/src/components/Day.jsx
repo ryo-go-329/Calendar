@@ -5,10 +5,12 @@ import GlobalContext from '../context/GlobalContext';
 
 const Day = (props) => {
     const {day, rowIdx} = props;
-    
+    const {setShowEventModal,setDaySelected,savedEvents,setSelectedEvents} = useContext(GlobalContext);
+
+
     //日付の色を付ける
     const getCurrentDayClass = () => {
-        return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") 
+        return day.format("YYYY-MM-DD") === dayjs().format("YYYY-MM-DD") 
         ? "bg-blue-600 text-white rounded-full w-7" : ""
     }
     //休み日の色を付ける
@@ -23,19 +25,25 @@ const Day = (props) => {
       }
     }
     
-    const {setShowEventModal,setDaySelected,savedEvents,setSelectedEvents} = useContext(GlobalContext);
+    //Modal表示
     const getShowEventModal = () => {
       setShowEventModal(true);
-      setDaySelected(day.format("dddd, MMMM DD"));
+      // setDaySelected(day.format("dddd, MMMM DD"));
+      setDaySelected(day.format("YYYY-MM-DD"));
     }
     const [dayEvents,setDayEvents] = useState([]);
     
+
+    //選択した日のEventを取得
     useEffect(()=>{
-      const events = savedEvents.filter(
-        (evt) => dayjs(evt.day).format("DD-MM") === day.format("DD-MM")
-      );
+      if (savedEvents){
+        const events = savedEvents.filter(
+          (evt) => dayjs(evt.day).format("DD-MM") === day.format("DD-MM")
+        );
+        
+        setDayEvents(events);
+      }
       
-      setDayEvents(events);
     },[savedEvents,day]);
     
   return (
