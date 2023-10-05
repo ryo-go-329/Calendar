@@ -63,7 +63,7 @@ const Day = (props) => {
           <div 
             onClick={() => setSelectedEvents(evt)}
             key={idx} 
-            className={'bg-neutral-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate'}>
+            className={'bg-neutral-200 p-1 mr-3 max-sm:mr-0 text-gray-600 text-sm rounded mb-1 truncate'}>
             {evt.title}
           </div>
         ))}

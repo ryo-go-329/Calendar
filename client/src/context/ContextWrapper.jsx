@@ -45,6 +45,9 @@ const ContextWrapper = (props) => {
   // const [savedEvents,dispatchEvent] = useReducer(saveEventsReducer,[],initEvents);
   const [savedEvents,dispatchEvent] = useReducer(saveEventsReducer,null);
   const [selectedEvents,setSelectedEvents] = useState(null);
+  const [searchEvents,setSearchEvents] = useState([]);
+
+
 
   useEffect(() => {
     async function getPosts(){
@@ -68,7 +71,9 @@ const ContextWrapper = (props) => {
        showEventModal, setShowEventModal,
        daySelected,setDaySelected,
        savedEvents,dispatchEvent,
-       selectedEvents,setSelectedEvents
+       selectedEvents,setSelectedEvents,
+       searchEvents,setSearchEvents,
+
        }}>
       {props.children}
     </GlobalContext.Provider>

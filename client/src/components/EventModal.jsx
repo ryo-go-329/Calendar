@@ -57,19 +57,17 @@ const EventModal = () => {
   return (
     <div className='h-screen w-full fixed left-0 top-0 flex justify-center items-center'>
         <form className='bg-white rounded-lg shadow-2xl w-1/2'>
-            <header className='bg-gray-100 px-4 py-2 flex justify-center'>
-                <div className='text-gray-400 flex'>
-                    <p>{selectedEvents ? 'Edit': 'Create'}</p>
-                    <p>{daySelected}</p>
-                    <div className='pl-2 pt-1'>
-                        <button onClick={handleDelete}>
-                            <MdDeleteOutline />
-                        </button>
-                        <button onClick={() => setShowEventModal(false)}>
-                            <MdClose />
-                        </button>
-                    </div>
-                    
+            <header className='bg-gray-100 px-4 py-2 flex flex-1 text-gray-400 justify-between'>
+            
+                <p>{selectedEvents ? 'Edit': 'Create'}</p>
+                <p>{daySelected}</p>
+                <div className='flex'>
+                    <button onClick={handleDelete} className='mr-10 hover:bg-gray-200 hover:rounded-full'>
+                        <MdDeleteOutline size={24} />
+                    </button>
+                    <button onClick={() => setShowEventModal(false)} className='hover:bg-gray-200 hover:rounded-full'>
+                        <MdClose  size={24}/>
+                    </button>
                 </div>
             </header>
 

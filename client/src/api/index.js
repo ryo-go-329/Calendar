@@ -1,5 +1,6 @@
 import axios from 'axios';
-const url = 'http://localhost:5000';
+const url = 'https://calendar-app-server-217c48466d09.herokuapp.com';
+
 
 export const fetchPosts = () => axios.get(url);
 export const createPost = (newPost) => axios.post(url,newPost);
